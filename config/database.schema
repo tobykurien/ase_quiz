@@ -1,6 +1,45 @@
-create table books (
+create table students (
   id bigint auto_increment,
-  title varchar(255),
-  author varchar(255)
+  student_number varchar(255) not null
 );
 
+create table quizzes (
+  id bigint auto_increment,
+  name varchar(255) not null
+);
+
+create table question_types (
+  id bigint auto_increment,
+  name varchar(255) not null
+);
+
+insert into question_types (id, name) values (1, 'Multiple choice');
+insert into question_types (id, name) values (2, 'Short text answer');
+
+create table questions (
+  id bigint auto_increment,
+  quiz_id bigint not null,
+  question_type_id bigint not null,
+  question text not null,
+  question_pic text,
+  question_audio text,
+  question_video text,
+  points bigint not null
+);
+
+create table answers (
+  id bigint auto_increment,
+  question_id bigint not null,
+  question text not null,
+  boolean correct
+);
+
+create table student_answers (
+  id bigint auto_increment,
+  student_id bigint not null,
+  question_id bigint not null,
+  answer_id bigint,
+  answer_text text,
+  boolean correct not null,
+  points bigint not null
+);
