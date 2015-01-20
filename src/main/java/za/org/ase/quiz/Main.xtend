@@ -18,6 +18,10 @@ class Main implements SparkApplication {
       get("/") [req, res|
          render("views/index.html", #{})
       ]
+      
+      get("/test") [
+         render("views/test.html", #{})
+      ]
    }
    
    def static void main(String[] args) {

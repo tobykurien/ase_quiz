@@ -31,7 +31,7 @@ create table answers (
   id bigint auto_increment,
   question_id bigint not null,
   question text not null,
-  boolean correct
+  correct boolean
 );
 
 create table student_answers (
@@ -40,6 +40,6 @@ create table student_answers (
   question_id bigint not null,
   answer_id bigint,
   answer_text text,
-  boolean correct not null,
+  correct boolean not null,
   points bigint not null
 );

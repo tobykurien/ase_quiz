@@ -1,4 +1,5 @@
 bin
+xtend-gen
 bower_components
 *.db
 *~

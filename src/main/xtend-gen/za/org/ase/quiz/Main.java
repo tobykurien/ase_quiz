@@ -19,6 +19,12 @@ public class Main implements SparkApplication {
       }
     };
     Sparkler.get("/", _function);
+    final Function2<Request, Response, Object> _function_1 = new Function2<Request, Response, Object>() {
+      public Object apply(final Request $0, final Response $1) {
+        return Sparkler.render("views/test.html", Collections.<String, Object>unmodifiableMap(CollectionLiterals.<String, Object>newHashMap()));
+      }
+    };
+    Sparkler.get("/test", _function_1);
   }
   
   public static void main(final String[] args) {

@@ -33,6 +33,6 @@
 	<classpathentry kind="lib" path="libs/spark-core-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/sparkler_v0.0.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
