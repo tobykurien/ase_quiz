@@ -1,14 +1,13 @@
+<!DOCTYPE html>
 <html>
-<head><title>{{$title}}Sparkler examples{{/title}}</title></head>
-<body>
-   <b>Sparkler app is running</b>
-   <p/>
-   {{$content}}
-     Your Sparkler app is up and running!
-     <p/>
-     View documentation for Sparkler development at 
-     <a href="https://github.com/tobykurien/Sparkler#examples" target="_blank"
-      >https://github.com/tobykurien/Sparkler#examples</a>
-   {{/content}}
-</body>
+  <head>
+    <!-- 1. Load platform support before any code that touches the DOM. -->
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <!-- 2. Load the component using an HTML Import -->
+    <link rel="import" href="elements/age-slider.html">
+  </head>
+  <body>
+    <!-- 3. Declare the element by its tag. -->
+    <age-slider name="Toby" age="12"></age_slider>
+  </body>
 </html>

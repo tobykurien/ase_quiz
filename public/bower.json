@@ -1,0 +1,25 @@
+{
+  "name": "ase_quiz",
+  "version": "0.0.0",
+  "homepage": "https://github.com/tobykurien/ase_quiz",
+  "authors": [
+    "Toby Kurien"
+  ],
+  "description": "ASE Quiz system",
+  "moduleType": [
+    "amd",
+    "es6"
+  ],
+  "license": "GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "~0.5.2",
+    "polymer": "Polymer/polymer#~0.5.2"
+  }
+}
