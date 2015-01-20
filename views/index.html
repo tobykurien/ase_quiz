@@ -10,27 +10,18 @@
 
     <link rel="import" href="elements/age-slider.html">
     
-    <style>
-      html, body {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-      }
-      
-      #menu {
-         width: 240px;
-         background: silver;
-      }
-    </style>
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
    
    <brick-layout>
+     <header>
       <brick-appbar style="background:orange">
         <button id="btn_menu" onclick="document.getElementById('main').toggleDrawer()" hide-gt-xs>☰</button>
         <h2>ASE Quiz</h2>
       </brick-appbar>
-
+     </header>
+     
      <brick-layout horizontal id="main" flex>
        <brick-menu id="menu" drawer-lt-s>
          <brick-menu-item selected>Menu Item 1</brick-menu-item>
@@ -42,7 +33,6 @@
        </div>
      </brick-layout>
    </brick-layout>
-
 
   </body>
 </html>

@@ -1,4 +1,5 @@
 bin
 bower_components
 *.db
+*~
 

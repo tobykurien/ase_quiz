@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "webcomponentsjs": "~0.5.2",
-    "polymer": "Polymer/polymer#~0.5.2"
+    "polymer": "Polymer/polymer#~0.5.2",
+    "brick": "mozbrick/brick#~2.0.0"
   }
 }
