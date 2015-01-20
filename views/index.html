@@ -1,38 +1,25 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
-
-    <link rel="import" href="bower_components/brick/dist/brick.html">
-    <link rel="import" href="bower_components/brick-appbar/dist/brick-appbar.html">
-    <link rel="import" href="bower_components/brick-layout/dist/brick-layout.html">
-    <link rel="import" href="bower_components/brick-menu/dist/brick-menu.html">
-
+{{< base}}
+   {{$header}}
     <link rel="import" href="elements/age-slider.html">
-    
-    <link rel="stylesheet" href="css/app.css">
-  </head>
-  <body>
-   
-   <brick-layout>
-     <header>
-      <brick-appbar style="background:orange">
-        <button id="btn_menu" onclick="document.getElementById('main').toggleDrawer()" hide-gt-xs>☰</button>
-        <h2>ASE Quiz</h2>
-      </brick-appbar>
-     </header>
-     
-     <brick-layout horizontal id="main" flex>
-       <brick-menu id="menu" drawer-lt-s>
-         <brick-menu-item selected>Menu Item 1</brick-menu-item>
-         <brick-menu-item>Menu Item 2</brick-menu-item>
-         <brick-menu-item>Menu Item 3</brick-menu-item>
-       </brick-menu>
-       <div id="content" flex>
-          <age-slider name="Toby" age="12"></age_slider>
-       </div>
-     </brick-layout>
-   </brick-layout>
+   {{/header}}
 
-  </body>
-</html>
+   {{$title}}Login{{/title}}
+
+   {{$content}}
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Navbar example</h1>
+        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+   
+      Sign in 
+      
+      <age-slider name="Toby" age="21"></age-slider>
+   
+   {{/content}}
+
+{{/base}}
