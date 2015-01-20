@@ -27,8 +27,6 @@
 	<classpathentry kind="lib" path="libs/jetty-xml-9.0.2.v20130417.jar"/>
 	<classpathentry kind="lib" path="libs/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="libs/mysql-connector-java-5.0.4.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.xtend.lib_2.5.0.v201312110906.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.xtext.xbase.lib_2.5.0.v201312110906.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-simple-1.6.4.jar"/>
 	<classpathentry kind="lib" path="libs/snakeyaml-1.11.jar"/>
