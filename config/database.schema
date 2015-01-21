@@ -1,10 +1,14 @@
 create table students (
   id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
   username varchar(255) not null
 );
 
 create table quizzes (
   id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
   name varchar(255) not null
 );
 
@@ -18,6 +22,8 @@ insert into question_types (id, name) values (2, 'Short text answer');
 
 create table questions (
   id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
   quiz_id bigint not null,
   question_type_id bigint not null,
   question text not null,
@@ -29,6 +35,8 @@ create table questions (
 
 create table answers (
   id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
   question_id bigint not null,
   question text not null,
   correct boolean
@@ -36,6 +44,8 @@ create table answers (
 
 create table student_answers (
   id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
   student_id bigint not null,
   question_id bigint not null,
   answer_id bigint,

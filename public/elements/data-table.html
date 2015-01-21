@@ -18,19 +18,20 @@
             <template repeat="{{c in columns()}}">
             <td>{{m[c]}}</td>
             </template>
-            <td><button>Edit</button> <button>Del</button></td>
+            <td>
+               <button onClick="edit({{m.id}})">Edit</button> 
+               <button onClick="del({{m.id}})">Del</button>
+            </td>
          </tr>
          </template>
       </table>  
   </template>
   
   <script>
+      var scope = null;
+      
        Polymer({
          model: '',
-         modelChanged: function() {
-            if (this.model !== '') {
-            }
-         },
          
          models: [],
          cols: "name",
@@ -39,8 +40,13 @@
          },
          
          ready: function() {
-            var scope = this;
-            console.log(this.columns());
+            scope = this;
+            
+            if (this.model == '') {
+               alert('Model not defined for data-table');
+               return;
+            }
+
             // load data
             var request = $.ajax({
                url: "/api/v1/" + this.model,
@@ -59,5 +65,13 @@
          }
        });
    
+ 
+      function edit(id) {
+         alert(scope.innerHTML);
+      }
+
+      function del(id) {
+         alert(scope.innerHTML);
+      }
    </script>
 </polymer-element>
