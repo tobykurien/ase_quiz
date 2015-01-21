@@ -22,11 +22,11 @@ class QuizRoutes extends BaseRoute {
       ])
 
       get(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
-         quiz.findById(req.queryParams("id"))
+         quiz.findById(req.params("id"))
       ])
       
       post(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
-         var q = quiz.findById(req.queryParams("id"))
+         var q = quiz.findById(req.params("id"))
          q.set("name", req.queryParams("name"))
          q.saveIt
       ])
@@ -38,7 +38,7 @@ class QuizRoutes extends BaseRoute {
       ])
       
       delete(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
-         quiz.delete("id = ?", req.queryParams("id"))
+         quiz.delete("id = ?", req.params("id"))
          #{ "success" -> true }
       ])
    }
