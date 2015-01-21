@@ -73,10 +73,6 @@
          },
          
          ready: function() {
-              var formHTML = this.innerHTML.replace("[[", "{{");
-              formHTML = formHTML.replace("]]", "}}");
-              this.injectBoundHTML(formHTML, this.$.model_form);          
-
             if (this.model == '') {
                alert('Model not defined for data-table');
                return;
@@ -88,6 +84,10 @@
          edit: function(e, detail, sender) {
            var m = e.target.templateInstance.model.m;
            this.m = m;
+
+           var formHTML = this.innerHTML.replace("[[", "{{");
+           formHTML = formHTML.replace("]]", "}}");
+           this.injectBoundHTML(formHTML, this.$.model_form);          
          },
          
          loadPage: function(e, detail, sender) {
