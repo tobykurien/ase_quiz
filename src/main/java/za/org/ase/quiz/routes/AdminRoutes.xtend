@@ -14,7 +14,7 @@ class AdminRoutes extends BaseRoute {
       ]
       
       get("/admin") [req, res|
-         render("views/test.html", #{})
+         render("views/admin/index.html", #{})
       ]
    }
    
