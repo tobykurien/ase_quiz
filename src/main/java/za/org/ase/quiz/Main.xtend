@@ -3,6 +3,7 @@ package za.org.ase.quiz
 import spark.servlet.SparkApplication
 
 import static com.tobykurien.sparkler.Sparkler.*
+import za.org.ase.quiz.routes.LoginRoutes
 
 class Main implements SparkApplication {
    
@@ -19,9 +20,7 @@ class Main implements SparkApplication {
          render("views/index.html", #{})
       ]
       
-      get("/test") [
-         render("views/test.html", #{})
-      ]
+      new LoginRoutes().load()
    }
    
    def static void main(String[] args) {
