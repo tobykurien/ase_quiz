@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/test/xtend-gen"/>
 	<classpathentry kind="src" path="src/main/xtend-gen"/>
+	<classpathentry kind="src" path="src/test/xtend-gen"/>
 	<classpathentry kind="src" path="src/main/webapp"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
