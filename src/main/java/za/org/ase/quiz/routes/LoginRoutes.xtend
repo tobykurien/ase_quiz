@@ -33,17 +33,13 @@ class LoginRoutes extends BaseRoute {
       Base.open(DatabaseManager.newDataSource)
       try {
          var username = req.queryParams("username")
-         var userid = req.queryParams("userid")
-         var courseid = req.queryParams("courseid")
 
          // create user
          var Student ret
          var s = student.find("username =?", username)
          if (s.length == 0) {
             ret = student.createIt(
-               "username", username,
-               "user_id", userid,
-               "course_id", courseid
+               "username", username
             )
          } else {
             ret = s.get(0)
