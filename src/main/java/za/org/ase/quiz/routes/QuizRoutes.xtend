@@ -11,7 +11,7 @@ class QuizRoutes extends BaseRoute {
    override load() {
       get(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
          var pageSize = 10
-         var paginator = new Paginator(Quiz, pageSize, "true");
+         var paginator = new Paginator(Quiz, pageSize, "true").orderBy("id");
          var page = try { Integer.parseInt(req.queryParams("page")) } catch (Exception e) { 1 };
          var result = paginator.getPage(page)
          #{
@@ -27,7 +27,8 @@ class QuizRoutes extends BaseRoute {
       
       post(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
          var q = quiz.findById(req.queryParams("id"))
-         q?.set("name", req.queryParams("name"))
+         q.set("name", req.queryParams("name"))
+         q.saveIt
       ])
 
       put(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
@@ -37,7 +38,7 @@ class QuizRoutes extends BaseRoute {
       ])
       
       delete(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
-         quiz.findById(req.queryParams("id"))?.deleteCascade
+         quiz.delete("id = ?", req.queryParams("id"))
          #{ "success" -> true }
       ])
    }

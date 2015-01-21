@@ -3,7 +3,7 @@
 
 <polymer-element name="data-table" attributes="model cols editCols">
   <template>
-      <button>Add new {{name}}</button>
+      <button class="btn btn-primary" on-click="{{create}}">Add new {{name}}</button>
 
       <p/>
       <nav>
@@ -44,8 +44,8 @@
             <td>{{m[c]}}</td>
             </template>
             <td>
-               <button on-click="{{edit}}">Edit</button> 
-               <button on-click="{{del}}">Del</button>
+               <button class="btn btn-primary" on-click="{{edit}}">Edit</button> 
+               <button class="btn btn-primary" on-click="{{del}}">Del</button>
             </td>
          </tr>
          </template>
