@@ -27,6 +27,12 @@ class LoginRoutes extends BaseRoute {
          res.redirect("/")
          ""
       ]
+      
+      get("/logout") [req, res|
+         req.setStudent(null)
+         res.redirect("/")
+         ""
+      ]
    }
 
    def doLogin(Request req) {

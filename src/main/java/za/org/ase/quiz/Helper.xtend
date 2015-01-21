@@ -24,11 +24,16 @@ class Helper {
 
    // Set the student into the session   
    def static setStudent(Request request, Student student) {
-      request.session(true).attribute("student", student)
+      if (student == null) {
+         request.session(true).removeAttribute("student")
+      } else {
+         request.session(true).attribute("student", student)
+      }
    }
    
    // Is this user an admin?
    def static isAdmin(Request request) {
+      if (getStudent(request) == null) return false;
       getStudent(request).get("username").equals("teacher")
    }
 }
