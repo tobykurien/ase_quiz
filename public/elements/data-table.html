@@ -1,25 +1,46 @@
 <link rel="import"
       href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="data-table" attributes="model">
+<polymer-element name="data-table" attributes="model cols">
   <template>
+      <button>Add new {{model}}</button>
+      <p/>
       <table class="table table-hover">
          <tr>
-            <td>Description</td>
+            <template repeat="{{c in columns()}}">
+            <td>{{c}}</td>
+            </template>
             <td>Action</td>
          </tr>
+
+         <template repeat="{{m in models}}">
+         <tr>
+            <template repeat="{{c in columns()}}">
+            <td>{{m[c]}}</td>
+            </template>
+            <td><button>Edit</button> <button>Del</button></td>
+         </tr>
+         </template>
       </table>  
   </template>
   
   <script>
        Polymer({
          model: '',
-         modelChanged: function(model) {
+         modelChanged: function() {
             if (this.model !== '') {
             }
          },
          
+         models: [],
+         cols: "name",
+         columns: function() {
+            return this.cols.split(" ");
+         },
+         
          ready: function() {
+            var scope = this;
+            console.log(this.columns());
             // load data
             var request = $.ajax({
                url: "/api/v1/" + this.model,
@@ -29,7 +50,7 @@
             });
          
             request.done(function( msg ) {
-               alert(msg);
+               scope.models = msg;
             });
          
             request.fail(function( jqXHR, textStatus ) {
