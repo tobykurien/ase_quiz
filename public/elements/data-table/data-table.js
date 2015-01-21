@@ -1,19 +1,17 @@
 Polymer({
-	model : '',
-	m : null,
+	model : '',	// name of model in backend
+	m : null,	// instance of model for binding
 
-	models : [],
+	models : [],	// array of models being displayed
 
+	// Columns to render in list (space-separated)
 	cols : "name",
 	columns : function() {
+		// return the columns as an array
 		return this.cols.split(" ");
 	},
 
-	editCols : "name",
-	editColumns : function() {
-		return this.editCols.split(" ");
-	},
-
+	// Called when component is ready to render
 	ready : function() {
 		if (this.model == '') {
 			alert('Model not defined for data-table');
@@ -23,28 +21,36 @@ Polymer({
 		this.loadData(1);
 	},
 
+	// Called when "edit" button is clicked
 	edit : function(e, detail, sender) {
 		var m = e.target.templateInstance.model.m;
 		this.m = m;
 
-		var formHTML = this.innerHTML.replace("[[", "{{");
+		// render edit form with bindings to model as "m" variable
+		var editForm = this.children[0];
+		var formHTML = editForm.innerHTML.replace("[[", "{{");
 		formHTML = formHTML.replace("]]", "}}");
 		this.injectBoundHTML(formHTML, this.$.model_form);
 	},
-	
+
+	// called when "add new" is clicked
 	create: function() {
 		this.m = {};
 
-		var formHTML = this.innerHTML.replace("[[", "{{");
+		// render edit form with blank model
+		var editForm = this.children[0];
+		var formHTML = editForm.innerHTML.replace("[[", "{{");
 		formHTML = formHTML.replace("]]", "}}");
 		this.injectBoundHTML(formHTML, this.$.model_form);
 	},
 
+	// called to load a page from the paginator (i.e. page number clicked)
 	loadPage : function(e, detail, sender) {
 		var p = e.target.templateInstance.model.pIndex + 1;
 		this.loadData(p);
 	},
 
+	// load previous page from paginator
 	previousPage : function() {
 		if (this.page > 1) {
 			this.page = this.page - 1;
@@ -52,6 +58,7 @@ Polymer({
 		}
 	},
 
+	// load next page from paginator
 	nextPage : function() {
 		if (this.page < this.pages) {
 			this.page = this.page + 1;
@@ -59,6 +66,7 @@ Polymer({
 		}
 	},
 
+	// display data in a list for the specified page. Backend decides how many items per page.
 	loadData : function(page) {
 		scope = this;
 		
@@ -85,6 +93,7 @@ Polymer({
 		});
 	},
 	
+	// Called when "delete" is clicked
 	del: function(e, detail, sender) {
 		var scope = this;
 		var m = e.target.templateInstance.model.m;
@@ -111,6 +120,7 @@ Polymer({
 		}
 	},
 	
+	// Called when a create or edit form is submitted. If id > 0, then it's an edit.
 	submit : function(e, detail, sender) {
 		var scope = this;
 		var m = e.target.templateInstance.model.m;

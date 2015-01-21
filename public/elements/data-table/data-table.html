@@ -1,7 +1,7 @@
 <link rel="import"
       href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="data-table" attributes="model cols editCols">
+<polymer-element name="data-table" attributes="model cols">
   <template>
       <button class="btn btn-primary" on-click="{{create}}">Add new {{name}}</button>
 
@@ -33,7 +33,7 @@
             <template repeat="{{c in columns()}}">
             <th>{{c}}</td>
             </template>
-            <th>Action</td>
+            <th width="140em">Action</td>
          </tr>
          </thead>
 

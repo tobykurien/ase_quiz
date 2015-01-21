@@ -11,15 +11,17 @@
    {{$content}}
       <h1>ASE Quiz Admin</h1>
       
-      <data-table model="quiz" cols="name" editCols="name">
-         Quiz
-         <form>
-           <div class="form-group">
-             <label for="name">Quiz name</label>
-             <input type="name" class="form-control" id="name" placeholder="Quiz name" value="[[m.name]]">
-           </div>
-           <button type="button" on-click="[[submit]]" class="btn btn-default">Submit</button>
-         </form>
+      <data-table model="quiz" cols="id name">      
+         <template> <!-- Edit form template is the first child element -->
+	         <b>Quiz</b>
+	         <form>
+	           <div class="form-group">
+	             <label for="name">Quiz name</label>
+	             <input type="name" class="form-control" id="name" placeholder="Quiz name" value="[[m.name]]">
+	           </div>
+	           <button type="button" on-click="[[submit]]" class="btn btn-default">Submit</button>
+	         </form>
+         </template>
       </data-table>
 
    {{/content}}
