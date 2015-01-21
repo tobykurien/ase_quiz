@@ -1,7 +1,7 @@
 {{< ../base}}
 
    {{$header}}
-   <link rel="import" href="{{rootPath}}/elements/data-table.html"/>
+      <link rel="import" href="{{rootPath}}/elements/data-table.html"/>
    {{/header}}
 
    {{$title}}ASE Quiz Admin{{/title}}
@@ -11,10 +11,12 @@
    {{$content}}
       <h1>ASE Quiz Admin</h1>
       
-      <data-table model="quiz" cols="id name">
-         Form fields here {{m.name}}, {{m.id}}
+      <data-table model="quiz" cols="name" editCols="name">
+         <form>
+            Form fields here: [[m.name]] [[m.id]]
+         </form>
       </data-table>
-      
+
    {{/content}}
 
 {{/../base}}

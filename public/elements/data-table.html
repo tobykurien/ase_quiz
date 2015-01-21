@@ -1,9 +1,9 @@
 <link rel="import"
       href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="data-table" attributes="model cols">
+<polymer-element name="data-table" attributes="model cols editCols">
   <template>
-      <button>Add new {{model}}</button>
+      <button>Add new {{name}}</button>
       <p/>
       <table class="table table-hover table-striped">
          <thead>
@@ -22,16 +22,15 @@
             <td>{{m[c]}}</td>
             </template>
             <td>
-               <button onClick="edit({{m.id}})">Edit</button> 
-               <button onClick="del({{m.id}})">Del</button>
+               <button on-click="{{edit}}">Edit</button> 
+               <button on-click="{{del}}">Del</button>
             </td>
          </tr>
          </template>
          </tbody>
       </table>  
 
-      <form id="model_form" style="display:none">
-      </form>      
+      <div id="model_form"></div>     
   </template>
   
   <script>
@@ -39,17 +38,22 @@
       
        Polymer({
          model: '',
+         m: null,
          
          models: [],
+
          cols: "name",
          columns: function() {
             return this.cols.split(" ");
          },
+
+         editCols: "name",
+         editColumns: function() {
+            return this.editCols.split(" ");
+         },
          
          ready: function() {
             scope = this;
-            
-            this.injectBoundHTML(this.innerHTML, this.$.model_form);
             
             if (this.model == '') {
                alert('Model not defined for data-table');
@@ -71,17 +75,17 @@
             request.fail(function( jqXHR, textStatus ) {
                alert( "Request failed: " + textStatus );
             });            
+         },
+         
+         edit: function(e, detail, sender) {
+           var m = e.target.templateInstance.model.m;
+           this.m = m;
+           
+           var formHTML = this.innerHTML.replace("[[", "{{");
+           formHTML = formHTML.replace("]]", "}}");
+           
+           this.injectBoundHTML(formHTML, this.$.model_form);          
          }
        });
-   
- 
-      function edit(model) {
-         scope.$.model_form.m = model;
-         alert(scope.$.model_form.innerHTML);
-      }
-
-      function del(id) {
-         alert(scope.innerHTML);
-      }
    </script>
 </polymer-element>
