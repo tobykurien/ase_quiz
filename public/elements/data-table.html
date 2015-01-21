@@ -4,6 +4,28 @@
 <polymer-element name="data-table" attributes="model cols editCols">
   <template>
       <button>Add new {{name}}</button>
+
+      <p/>
+      <nav>
+        <ul class="pagination">
+          <li class="{{ { disabled: page <= 1 }  | tokenList }}">
+            <a on-click="{{previousPage}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          
+          <template repeat="{{p,pIndex in pagesArray}}">
+          <li class="{{ { disabled: page == pIndex + 1 }  | tokenList }}"><a on-click="{{loadPage}}">{{pIndex+1}}</a></li>
+          </template>
+          
+          <li class="{{ { disabled: page >= pages }  | tokenList }}">
+            <a on-click="{{nextPage}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <p/>
       <table class="table table-hover table-striped">
          <thead>
@@ -34,8 +56,6 @@
   </template>
   
   <script>
-      var scope = null;
-      
        Polymer({
          model: '',
          m: null,
@@ -53,16 +73,49 @@
          },
          
          ready: function() {
-            scope = this;
-            
+              var formHTML = this.innerHTML.replace("[[", "{{");
+              formHTML = formHTML.replace("]]", "}}");
+              this.injectBoundHTML(formHTML, this.$.model_form);          
+
             if (this.model == '') {
                alert('Model not defined for data-table');
                return;
             }
 
+            this.loadData(1);
+         },
+         
+         edit: function(e, detail, sender) {
+           var m = e.target.templateInstance.model.m;
+           this.m = m;
+         },
+         
+         loadPage: function(e, detail, sender) {
+           var p = e.target.templateInstance.model.pIndex + 1;
+           this.loadData(p);
+         },
+         
+         previousPage: function() {
+            if (this.page > 1) {
+               this.page = this.page - 1;
+               this.loadData(this.page);
+            }
+         },
+         
+         nextPage: function() {
+            if (this.page < this.pages) {
+               this.page = this.page + 1;
+               this.loadData(this.page);
+            }
+         },
+         
+         loadData: function(page) {
+            scope = this;
+            this.page = page;
+            
             // load data
             var request = $.ajax({
-               url: "/api/v1/" + this.model,
+               url: "/api/v1/" + this.model + "?page=" + page,
                type: "GET",
                //data: { id : menuId },
                dataType: "json"
@@ -70,21 +123,13 @@
          
             request.done(function( msg ) {
                scope.models = msg.results;
+               scope.pages = msg.pages * 1;
+               scope.pagesArray = new Array(scope.pages);
             });
          
             request.fail(function( jqXHR, textStatus ) {
                alert( "Request failed: " + textStatus );
             });            
-         },
-         
-         edit: function(e, detail, sender) {
-           var m = e.target.templateInstance.model.m;
-           this.m = m;
-           
-           var formHTML = this.innerHTML.replace("[[", "{{");
-           formHTML = formHTML.replace("]]", "}}");
-           
-           this.injectBoundHTML(formHTML, this.$.model_form);          
          }
        });
    </script>

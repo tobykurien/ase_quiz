@@ -10,12 +10,13 @@ class QuizRoutes extends BaseRoute {
    
    override load() {
       get(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
-         var pageSize = 10
+         var pageSize = 1
          var paginator = new Paginator(Quiz, pageSize, "true");
          var page = try { Integer.parseInt(req.queryParams("page")) } catch (Exception e) { 1 };
          var result = paginator.getPage(page)
          #{
             'count' -> paginator.count,
+            'pages' -> paginator.pageCount,
             'results' -> result.toMaps
           }
       ])
