@@ -6,6 +6,7 @@ import spark.servlet.SparkApplication
 import za.org.ase.quiz.models.Student
 import za.org.ase.quiz.routes.AdminRoutes
 import za.org.ase.quiz.routes.LoginRoutes
+import za.org.ase.quiz.routes.QuizRoutes
 
 import static com.tobykurien.sparkler.Sparkler.*
 
@@ -47,6 +48,7 @@ class Main implements SparkApplication {
       
       new LoginRoutes().load()
       new AdminRoutes().load()
+      new QuizRoutes().load()
    }
    
    def static void main(String[] args) {
