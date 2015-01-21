@@ -12,13 +12,31 @@
   </template>
   
   <script>
-    Polymer({
-      model: '',
-      modelChanged: function(model) {
-         if (this.model !== '') {
+       Polymer({
+         model: '',
+         modelChanged: function(model) {
+            if (this.model !== '') {
+            }
+         },
+         
+         ready: function() {
             // load data
+            var request = $.ajax({
+               url: "/api/v1/" + this.model,
+               type: "GET",
+               //data: { id : menuId },
+               dataType: "json"
+            });
+         
+            request.done(function( msg ) {
+               alert(msg);
+            });
+         
+            request.fail(function( jqXHR, textStatus ) {
+               alert( "Request failed: " + textStatus );
+            });            
          }
-      }
-    });
-</script>
+       });
+   
+   </script>
 </polymer-element>

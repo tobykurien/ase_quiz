@@ -11,6 +11,7 @@ import za.org.ase.quiz.routes.QuizRoutes
 import static com.tobykurien.sparkler.Sparkler.*
 
 import static extension za.org.ase.quiz.Helper.*
+import za.org.ase.quiz.routes.BaseRoute
 
 class Main implements SparkApplication {
    
@@ -28,14 +29,15 @@ class Main implements SparkApplication {
       before [ req, res, filter |
          if (req.pathInfo.startsWith("/css/") || 
              req.pathInfo.startsWith("/javascript/") ||
-             req.pathInfo.startsWith("/bower_components/")) {
+             req.pathInfo.startsWith("/bower_components/") ||
+             req.pathInfo.startsWith(BaseRoute.API_PREFIX)) {
             // these are needed to display the login screen    
             return
          }
          
          if (!req.pathInfo.startsWith("/login")) {
             if (req.student == null) {
-               res.redirect("/login")
+               if (!req.pathInfo.startsWith(BaseRoute.API_PREFIX)) res.redirect("/login")
                filter.haltFilter(401, "Unauthorised")
             }
          }

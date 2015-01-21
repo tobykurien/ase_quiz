@@ -1,12 +1,17 @@
 {{< ../base}}
 
+   {{$header}}
+   <link rel="import" href="{{rootPath}}/elements/data-table.html"/>
+   {{/header}}
+
    {{$title}}ASE Quiz Admin{{/title}}
 
    {{$navbar}}{{> navbar_admin}}{{/navbar}}
 
    {{$content}}
-   
       <h1>ASE Quiz Admin</h1>
+      
+      <data-table model="quiz"></data-table>
       
    {{/content}}
 
