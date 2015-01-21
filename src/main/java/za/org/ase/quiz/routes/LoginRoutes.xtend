@@ -24,7 +24,8 @@ class LoginRoutes extends BaseRoute {
 
       post("/login") [ req, res |
          doLogin(req)
-         res.redirect("/")
+         if (req.isAdmin) res.redirect("/admin")
+         else res.redirect("/")
          ""
       ]
       

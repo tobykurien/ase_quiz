@@ -5,14 +5,17 @@
   <template>
       <button>Add new {{model}}</button>
       <p/>
-      <table class="table table-hover">
+      <table class="table table-hover table-striped">
+         <thead>
          <tr>
             <template repeat="{{c in columns()}}">
-            <td>{{c}}</td>
+            <th>{{c}}</td>
             </template>
-            <td>Action</td>
+            <th>Action</td>
          </tr>
+         </thead>
 
+         <tbody>
          <template repeat="{{m in models}}">
          <tr>
             <template repeat="{{c in columns()}}">
@@ -24,7 +27,11 @@
             </td>
          </tr>
          </template>
+         </tbody>
       </table>  
+
+      <form id="model_form" style="display:none">
+      </form>      
   </template>
   
   <script>
@@ -42,6 +49,8 @@
          ready: function() {
             scope = this;
             
+            this.injectBoundHTML(this.innerHTML, this.$.model_form);
+            
             if (this.model == '') {
                alert('Model not defined for data-table');
                return;
@@ -56,7 +65,7 @@
             });
          
             request.done(function( msg ) {
-               scope.models = msg;
+               scope.models = msg.results;
             });
          
             request.fail(function( jqXHR, textStatus ) {
@@ -66,8 +75,9 @@
        });
    
  
-      function edit(id) {
-         alert(scope.innerHTML);
+      function edit(model) {
+         scope.$.model_form.m = model;
+         alert(scope.$.model_form.innerHTML);
       }
 
       function del(id) {

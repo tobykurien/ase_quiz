@@ -3,13 +3,21 @@ package za.org.ase.quiz.routes
 import com.tobykurien.sparkler.transformer.JsonTransformer
 import org.javalite.activejdbc.Model
 import za.org.ase.quiz.models.Quiz
+import org.javalite.activejdbc.Paginator
 
 class QuizRoutes extends BaseRoute {
    var quiz = Model.with(Quiz)
    
    override load() {
       get(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
-         quiz.findAll
+         var pageSize = 10
+         var paginator = new Paginator(Quiz, pageSize, "true");
+         var page = try { Integer.parseInt(req.queryParams("page")) } catch (Exception e) { 1 };
+         var result = paginator.getPage(page)
+         #{
+            'count' -> paginator.count,
+            'results' -> result.toMaps
+          }
       ])
 
       get(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
