@@ -112,7 +112,7 @@ Polymer({
 		var scope = this;
 		var m = e.target.templateInstance.model.m;
 
-		if (m.id > 0) {
+		if (confirm("Are you sure?") && m.id > 0) {
 			var type = "DELETE";
 			var uri = "/api/v1/" + this.model + "/" + m.id;
 
