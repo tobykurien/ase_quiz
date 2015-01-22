@@ -29,11 +29,13 @@ Polymer({
 		this.loadData(1);
 	},
 
+	// Called to load the edit form for "add new" or "edit" operations
 	loadForm: function() {
 		// render edit form with bindings to model as "m" variable
 		var editForm = this.children[0];
-		var formHTML = editForm.innerHTML.replace("[[", "{{");
-		formHTML = formHTML.replace("]]", "}}");
+		var formHTML = editForm.innerHTML.replace(new RegExp("\\[\\[", "g"), "{{");
+		formHTML = formHTML.replace(new RegExp("\\]\\]", "g"), "}}");
+		alert(formHTML);
 		this.injectBoundHTML(formHTML, this.$.model_form);
 		
 		// hide data table
@@ -54,6 +56,8 @@ Polymer({
 		this.loadForm();
 	},
 
+	// Generic user-defined operation callback. It will call the javascript function
+	// defined in the onAction attribute with operation and model details.
 	operation: function(e, detail, sender) {
 		var model = e.target.templateInstance.model;
 		if (this.onAction && this.onAction.trim().length > 0) {
@@ -161,6 +165,8 @@ Polymer({
 			// update record
 			type = "POST";
 			uri = uri + "/" + m.id;
+		} else {
+			uri = uri + "?" + this.params;
 		}
 
 		// post data back to server
