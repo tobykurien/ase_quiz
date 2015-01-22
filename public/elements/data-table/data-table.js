@@ -14,6 +14,7 @@ Polymer({
 	// external operations
 	actions: "",
 	operations: [],	
+	onAction: "",
 	
 	// Called when component is ready to render
 	ready : function() {
@@ -55,7 +56,12 @@ Polymer({
 
 	operation: function(e, detail, sender) {
 		var model = e.target.templateInstance.model;
-		alert(model.o + " - " + model.m.id);
+		if (this.onAction && this.onAction.trim().length > 0) {
+			var fn = window[this.onAction];
+			if (fn && typeof fn === 'function') {
+				fn(model.o, model.m);
+			}
+		}
 	},
 	
 	// called to load a page from the paginator (i.e. page number clicked)

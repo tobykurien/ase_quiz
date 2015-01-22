@@ -11,7 +11,13 @@
    {{$content}}
       <h1>ASE Quiz Admin</h1>
       
-      <data-table model="quiz" cols="id name" actions="Questions">      
+      <script>
+        function quizAction(action, model) {
+    	    alert(action + " - " + model.id);
+        }
+      </script>
+      
+      <data-table model="quiz" cols="id name" actions="Questions" onAction="quizAction">      
          <template> <!-- Edit form template is the first child element -->
 	         <b>Quiz</b>
 	         <form>
