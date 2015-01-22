@@ -1,7 +1,7 @@
 <link rel="import"
       href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="data-table" attributes="model cols params">
+<polymer-element name="data-table" attributes="model cols params actions">
   <template>
       <div id="data_table">
 	      <button class="btn btn-primary" on-click="{{create}}">Add new {{name}}</button>
@@ -34,7 +34,7 @@
 	            <template repeat="{{c in columns()}}">
 	            <th>{{c}}</td>
 	            </template>
-	            <th width="140em">Action</td>
+	            <th style="text-align: right;" align="right">Action</td>
 	         </tr>
 	         </thead>
 	
@@ -44,9 +44,12 @@
 	            <template repeat="{{c in columns()}}">
 	            <td>{{m[c]}}</td>
 	            </template>
-	            <td>
+	            <td align="right">
 	               <button class="btn btn-primary" on-click="{{edit}}">Edit</button> 
 	               <button class="btn btn-primary" on-click="{{del}}">Del</button>
+	               <template repeat="{{o in operations}}">
+	                 <button class="btn btn-primary" on-click="{{operation}}">{{o}}</button>
+	               </template>
 	            </td>
 	         </tr>
 	         </template>

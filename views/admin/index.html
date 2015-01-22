@@ -11,7 +11,7 @@
    {{$content}}
       <h1>ASE Quiz Admin</h1>
       
-      <data-table model="quiz" cols="id name">      
+      <data-table model="quiz" cols="id name" actions="Questions">      
          <template> <!-- Edit form template is the first child element -->
 	         <b>Quiz</b>
 	         <form>
@@ -19,18 +19,9 @@
 	             <label for="name">Quiz name</label>
 	             <input type="name" class="form-control" id="name" placeholder="Quiz name" value="[[m.name]]">
 	           </div>
-              
-              <div class="form-group">
-                <label for="name">Questions</label>
-                <data-table model="question" cols="question_type question points" params="quizId=[[m.id]]">
-                  <template>
-                     Question edit form
-                  </template>
-                </data-table>      
-              </div>
 	           
-	           <button type="button" on-click="[[cancel]]" class="btn">Cancel</button>
-	           <button type="button" on-click="[[submit]]" class="btn btn-default">Submit</button>
+	           <button on-click="[[cancel]]" class="btn">Cancel</button>
+	           <button on-click="[[submit]]" class="btn btn-default">Submit</button>
 	         </form>
          </template>
       </data-table>

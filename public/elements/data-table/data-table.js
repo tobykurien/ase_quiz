@@ -11,6 +11,10 @@ Polymer({
 		return this.cols.split(" ");
 	},
 
+	// external operations
+	actions: "",
+	operations: [],	
+	
 	// Called when component is ready to render
 	ready : function() {
 		if (this.model == '') {
@@ -18,14 +22,13 @@ Polymer({
 			return;
 		}
 
+		// load external operations
+		this.operations = this.actions.split(" ");
+		
 		this.loadData(1);
 	},
 
-	// Called when "edit" button is clicked
-	edit : function(e, detail, sender) {
-		var m = e.target.templateInstance.model.m;
-		this.m = m;
-
+	loadForm: function() {
 		// render edit form with bindings to model as "m" variable
 		var editForm = this.children[0];
 		var formHTML = editForm.innerHTML.replace("[[", "{{");
@@ -36,18 +39,25 @@ Polymer({
 		this.$.data_table.style.display = 'none';
 		this.$.data_table.style.visibility = 'hidden';
 	},
+	
+	// Called when "edit" button is clicked
+	edit : function(e, detail, sender) {
+		var m = e.target.templateInstance.model.m;
+		this.m = m;
+		this.loadForm();
+	},
 
 	// called when "add new" is clicked
 	create: function() {
 		this.m = {};
-
-		// render edit form with blank model
-		var editForm = this.children[0];
-		var formHTML = editForm.innerHTML.replace("[[", "{{");
-		formHTML = formHTML.replace("]]", "}}");
-		this.injectBoundHTML(formHTML, this.$.model_form);
+		this.loadForm();
 	},
 
+	operation: function(e, detail, sender) {
+		var model = e.target.templateInstance.model;
+		alert(model.o + " - " + model.m.id);
+	},
+	
 	// called to load a page from the paginator (i.e. page number clicked)
 	loadPage : function(e, detail, sender) {
 		var p = e.target.templateInstance.model.pIndex + 1;
