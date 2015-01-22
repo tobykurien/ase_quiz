@@ -5,13 +5,14 @@ import org.javalite.activejdbc.LogFilter
 import spark.servlet.SparkApplication
 import za.org.ase.quiz.models.Student
 import za.org.ase.quiz.routes.AdminRoutes
+import za.org.ase.quiz.routes.BaseRoute
 import za.org.ase.quiz.routes.LoginRoutes
+import za.org.ase.quiz.routes.QuestionRoutes
 import za.org.ase.quiz.routes.QuizRoutes
 
 import static com.tobykurien.sparkler.Sparkler.*
 
 import static extension za.org.ase.quiz.Helper.*
-import za.org.ase.quiz.routes.BaseRoute
 
 class Main implements SparkApplication {
    
@@ -51,6 +52,7 @@ class Main implements SparkApplication {
       new LoginRoutes().load()
       new AdminRoutes().load()
       new QuizRoutes().load()
+      new QuestionRoutes().load()
    }
    
    def static void main(String[] args) {

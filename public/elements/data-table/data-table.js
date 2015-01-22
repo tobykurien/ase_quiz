@@ -1,8 +1,8 @@
 Polymer({
 	model : '',	// name of model in backend
 	m : null,	// instance of model for binding
-
 	models : [],	// array of models being displayed
+	params: '',		// parameters to pass to REST query
 
 	// Columns to render in list (space-separated)
 	cols : "name",
@@ -31,6 +31,10 @@ Polymer({
 		var formHTML = editForm.innerHTML.replace("[[", "{{");
 		formHTML = formHTML.replace("]]", "}}");
 		this.injectBoundHTML(formHTML, this.$.model_form);
+		
+		// hide data table
+		this.$.data_table.style.display = 'none';
+		this.$.data_table.style.visibility = 'hidden';
 	},
 
 	// called when "add new" is clicked
@@ -76,7 +80,7 @@ Polymer({
 
 		// load data
 		var request = $.ajax({
-			url : "/api/v1/" + this.model + "?page=" + this.page,
+			url : "/api/v1/" + this.model + "?page=" + this.page + "&" + this.params,
 			type : "GET",
 			// data: { id : menuId },
 			dataType : "json"
@@ -119,12 +123,21 @@ Polymer({
 			});
 		}
 	},
+
+	cancel: function() {
+		// show data table
+		this.$.data_table.style.display = 'block';
+		this.$.data_table.style.visibility = 'visible';
+		
+		// remove edit form
+		this.$.model_form.innerHTML = '';
+	},
 	
 	// Called when a create or edit form is submitted. If id > 0, then it's an edit.
 	submit : function(e, detail, sender) {
 		var scope = this;
 		var m = e.target.templateInstance.model.m;
-		this.$.model_form.innerHTML = '';
+		this.cancel();
 
 		var type = "PUT";
 		var uri = "/api/v1/" + this.model;
