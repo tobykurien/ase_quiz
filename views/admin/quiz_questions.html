@@ -9,23 +9,16 @@
    {{$navbar}}{{> navbar_admin}}{{/navbar}}
 
    {{$content}}
-      <h1>ASE Quiz Admin</h1>
+      <h1>{{quiz.name}} questions</h1>
       
-      <script>
-        function quizAction(action, model) {
-        	 if (action === "Questions") {
-	          location.href='{{rootPath}}/admin/questions/' + model.id;
-        	 }
-        }
-      </script>
-      
-      <data-table model="quiz" cols="id name" actions="Questions" onAction="quizAction">      
+      <data-table model="question" params="quizId={{quiz.id}}" 
+         cols="id question">      
          <template> <!-- Edit form template is the first child element -->
-	         <b>Quiz</b>
+	         <b>Question</b>
 	         <form>
 	           <div class="form-group">
-	             <label for="name">Quiz name</label>
-	             <input type="name" class="form-control" id="name" placeholder="Quiz name" value="[[m.name]]">
+	             <label for="name">Question</label>
+	             <input type="name" class="form-control" id="question" placeholder="Question" value="[[m.question]]">
 	           </div>
 	           
 	           <button on-click="[[cancel]]" class="btn">Cancel</button>
