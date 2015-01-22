@@ -35,7 +35,6 @@ Polymer({
 		var editForm = this.children[0];
 		var formHTML = editForm.innerHTML.replace(new RegExp("\\[\\[", "g"), "{{");
 		formHTML = formHTML.replace(new RegExp("\\]\\]", "g"), "}}");
-		alert(formHTML);
 		this.injectBoundHTML(formHTML, this.$.model_form);
 		
 		// hide data table
