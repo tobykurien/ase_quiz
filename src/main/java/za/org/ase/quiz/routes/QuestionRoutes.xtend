@@ -27,13 +27,18 @@ class QuestionRoutes extends BaseRoute {
       
       post(new JsonTransformer(API_PREFIX + "/question/:id") [req, res|
          var q = question.findById(req.params("id"))
-         q.set("name", req.queryParams("name"))
+         q.set("question", req.queryParams("question"))
+         q.set("question_type_id", req.queryParams("question_type_id"))
+         q.set("points", req.queryParams("points"))
          q.saveIt
       ])
 
       put(new JsonTransformer(API_PREFIX + "/question") [req, res|
          question.createIt(
-            "name", req.queryParams("name")
+            "quiz_id", req.queryParams("quizId"),
+            "question", req.queryParams("question"),
+            "question_type_id", req.queryParams("question_type_id"),
+            "points", req.queryParams("points")
          )
       ])
       

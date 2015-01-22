@@ -24,7 +24,11 @@ Polymer({
 		}
 
 		// load external operations
-		this.operations = this.actions.split(" ");
+		if (this.actions.trim().length > 0) {
+			this.operations = this.actions.split(" ");
+		} else {
+			this.operations = []			
+		}
 		
 		this.loadData(1);
 	},
