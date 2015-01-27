@@ -38,7 +38,7 @@ create table answers (
   created_at timestamp,
   updated_at timestamp,
   question_id bigint not null,
-  question text not null,
+  answer text not null,
   correct boolean
 );
 

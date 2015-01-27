@@ -9,7 +9,7 @@ class QuestionRoutes extends BaseRoute {
    var question = Model.with(Question)
    
    override load() {
-      get(new JsonTransformer(API_PREFIX + "/question") [req, res|
+      get(new JsonTransformer(API_PREFIX + "/questions") [req, res|
          var pageSize = 10
          var paginator = new Paginator(Question, pageSize, "quiz_id = ?", req.queryParams("quizId")).orderBy("id");
          var page = try { Integer.parseInt(req.queryParams("page")) } catch (Exception e) { 1 };
