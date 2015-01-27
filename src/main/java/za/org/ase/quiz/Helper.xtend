@@ -19,6 +19,11 @@ class Helper {
    
    // Get the student from the session   
    def static getStudent(Request request) {
+      if (Debug.NOLOGIN && request.session(true).attribute("student") == null) {
+         var s = new Student
+         request.session(true).attribute("student", s)         
+      }
+      
       request.session(true).attribute("student") as Student
    }
 
@@ -33,6 +38,8 @@ class Helper {
    
    // Is this user an admin?
    def static isAdmin(Request request) {
+      if (Debug.NOLOGIN) return true;
+      
       if (getStudent(request) == null) return false;
       getStudent(request).get("username").equals("teacher")
    }

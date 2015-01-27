@@ -14,7 +14,7 @@
       <script>
         function quizAction(action, model) {
           if (action === "Answers") {
-             location.href='{{rootPath}}/admin/answers?questionId=' + model.id;
+             location.href='{{rootPath}}/admin/answers/' + model.id;
           }
         }
       </script>
@@ -22,21 +22,30 @@
       <data-table model="question" params="quizId={{quiz.id}}" cols="id question points"
          actions="Answers" onAction="quizAction">      
          <template> <!-- Edit form template is the first child element -->
-	         <b>Answer</b>
-	         <form>
+            <b>Question</b>
+            <form>
               <div class="form-group">
-                <label for="question">Answer</label>
-                <input type="text" class="form-control" id="answer" placeholder="Answer text" value="[[m.answer]]">
+                <label for="question_type_id">Question Type</label>
+                <select id="question_type_id" value="[[m.question_type_id]]">
+                    <option value="">Select type</option>
+                    <option value="0">Multiple choice</option>
+                    <option value="1">Short answer</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="question">Question</label>
+                <input type="text" class="form-control" id="question" placeholder="Question" value="[[m.question]]">
               </div>
 
               <div class="form-group">
-                <label for="points"></label>
-                <input type="checkbox" class="form-control" id="correct" value="[[m.checkbox]]"> Correct answer?
+                <label for="points">Points</label>
+                <input type="text" class="form-control" id="points" placeholder="Points" value="[[m.points]]">
               </div>
 
-	           <button on-click="[[cancel]]" class="btn">Cancel</button>
-	           <button on-click="[[submit]]" class="btn btn-default">Submit</button>
-	         </form>
+              <button on-click="[[cancel]]" class="btn">Cancel</button>
+              <button on-click="[[submit]]" class="btn btn-default">Submit</button>
+            </form>
          </template>
       </data-table>
 
