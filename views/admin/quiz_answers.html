@@ -9,9 +9,12 @@
    {{$navbar}}{{> navbar_admin}}{{/navbar}}
 
    {{$content}}
-      <h1>{{quiz.name}} questions</h1>
+      <h1>Answers</h1>
       
-      <data-table model="question" params="quizId={{quiz.id}}" cols="id question points"
+      <b>{{question.question}}</b>
+      <br/><br/>
+      
+      <data-table model="answer" params="questionId={{question.id}}" cols="id answer points"
          actions="Answers">      
          <template> <!-- Edit form template is the first child element -->
             <b>Answer</b>
@@ -23,7 +26,7 @@
 
               <div class="form-group">
                 <label for="points"></label>
-                <input type="checkbox" class="form-control" id="correct" value="[[m.checkbox]]"> Correct answer?
+                <input type="checkbox" class="form-control" id="correct" checked="[[m.checkbox]]" value="true"> Correct answer?
               </div>
 
               <button on-click="[[cancel]]" class="btn">Cancel</button>
