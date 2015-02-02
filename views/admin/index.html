@@ -31,7 +31,7 @@
 
       <template id="dlg_activate">
          <b>Activate Quiz</b>
-         <form>
+         <form name='activate'>
             
             <p><span id="quiz_title"></span></p>
             
@@ -53,11 +53,7 @@
       </template>
 
       <script>
-          var model = {};
-          
           function quizAction(action, model) {
-        	   this.model = model;
-        	   
             if (action === "Questions") {
               location.href='{{rootPath}}/admin/questions/' + model.id;
             } else if (action == "Activate") {
@@ -69,6 +65,7 @@
                 var editForm = document.getElementById("dlg_activate");
                 document.getElementById('dialog').innerHTML = editForm.innerHTML;
                 document.getElementById('quiz_title').innerHTML = model.name;
+                document.forms['activate'].model = model;
             }
           }
           
@@ -85,14 +82,14 @@
             var value = theForm['duration'].selectedOptions[0].value;
 
             var request = $.ajax({
-               url : "/api/v1/activate_quiz",
-               type : "PUT",
-               data: { 'quiz_id': this.model.id, 'duration': value },
+               url : "/api/v1/quiz/" + theForm.model.id,
+               type : "POST",
+               data: { 'duration': value },
                dataType : "json"
             });
 
             request.done(function(msg) {
-               alert('success!');
+            	closeDialog();               
             });
 
             request.fail(function(jqXHR, textStatus) {

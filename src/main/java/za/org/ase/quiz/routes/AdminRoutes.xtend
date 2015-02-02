@@ -6,8 +6,6 @@ import org.javalite.activejdbc.Model
 import za.org.ase.quiz.models.Question
 import za.org.ase.quiz.models.Quiz
 
-import static extension za.org.ase.quiz.Helper.*
-
 class AdminRoutes extends BaseRoute {
    var quiz = Model.with(Quiz)
    var question = Model.with(Question)

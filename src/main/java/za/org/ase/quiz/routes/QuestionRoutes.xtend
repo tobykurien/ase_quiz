@@ -4,6 +4,7 @@ import com.tobykurien.sparkler.transformer.JsonTransformer
 import org.javalite.activejdbc.Model
 import org.javalite.activejdbc.Paginator
 import za.org.ase.quiz.models.Question
+import com.tobykurien.sparkler.transformer.RestfulException
 
 class QuestionRoutes extends BaseRoute {
    var question = Model.with(Question)
@@ -26,6 +27,10 @@ class QuestionRoutes extends BaseRoute {
       ])
       
       post(new JsonTransformer(API_PREFIX + "/question/:id") [req, res|
+         if (!req.isAdmin) {
+            throw new RestfulException(401, "Unauthorized")
+         }
+
          var q = question.findById(req.params("id"))
          q.set("question", req.queryParams("question"))
          q.set("question_type_id", req.queryParams("question_type_id"))
@@ -34,6 +39,10 @@ class QuestionRoutes extends BaseRoute {
       ])
 
       put(new JsonTransformer(API_PREFIX + "/question") [req, res|
+         if (!req.isAdmin) {
+            throw new RestfulException(401, "Unauthorized")
+         }
+
          question.createIt(
             "quiz_id", req.queryParams("quizId"),
             "question", req.queryParams("question"),
@@ -43,6 +52,10 @@ class QuestionRoutes extends BaseRoute {
       ])
       
       delete(new JsonTransformer(API_PREFIX + "/question/:id") [req, res|
+         if (!req.isAdmin) {
+            throw new RestfulException(401, "Unauthorized")
+         }
+
          question.delete("id = ?", req.params("id"))
          #{ "success" -> true }
       ])

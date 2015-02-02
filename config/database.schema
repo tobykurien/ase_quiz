@@ -9,14 +9,7 @@ create table quizzes (
   id bigint auto_increment,
   created_at timestamp,
   updated_at timestamp,
-  name varchar(255) not null
-);
-
-create table active_quizzes (
-  id bigint auto_increment,
-  created_at timestamp,
-  updated_at timestamp,
-  quiz_id bigint not null,
+  name varchar(255) not null,
   ends_at timestamp
 );
 
