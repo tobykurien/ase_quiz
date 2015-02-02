@@ -31,55 +31,74 @@
 
       <template id="dlg_activate">
          <b>Activate Quiz</b>
-         <form onsubmit="">
+         <form>
             
             <p><span id="quiz_title"></span></p>
             
             <div class="form-group">
               <label for="name">Run quiz for:</label>
               <select name="duration">
-                <option>30 minutes</option>
-                <option>25 minutes</option>
-                <option>20 minutes</option>
-                <option>15 minutes</option>
-                <option>10 minutes</option>
-                <option>5 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="25">25 minutes</option>
+                <option value="20" selected>20 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="5">5 minutes</option>
               </select>
             </div>
-              
+            
             <button onClick="closeDialog()" class="btn">Cancel</button>
-            <button onClick="activateQuiz(this)" class="btn btn-default">Submit</button>
+            <button onClick="activateQuiz(this.form)" class="btn btn-default">Submit</button>
          </form>
       </template>
 
       <script>
-        function quizAction(action, model) {
-          if (action === "Questions") {
-        	   location.href='{{rootPath}}/admin/questions/' + model.id;
-          } else if (action == "Activate") {
-        	     var dt = document.getElementById("grid");
-              // hide data table
-              dt.style.display = 'none';
-              dt.style.visibility = 'hidden';
-              
-              var editForm = document.getElementById("dlg_activate");
-              document.getElementById('dialog').innerHTML = editForm.innerHTML;
-              document.getElementById('quiz_title').innerHTML = model.name;
+          var model = {};
+          
+          function quizAction(action, model) {
+        	   this.model = model;
+        	   
+            if (action === "Questions") {
+              location.href='{{rootPath}}/admin/questions/' + model.id;
+            } else if (action == "Activate") {
+                var dt = document.getElementById("grid");
+                // hide data table
+                dt.style.display = 'none';
+                dt.style.visibility = 'hidden';
+                
+                var editForm = document.getElementById("dlg_activate");
+                document.getElementById('dialog').innerHTML = editForm.innerHTML;
+                document.getElementById('quiz_title').innerHTML = model.name;
+            }
           }
-        }
-        
-        function closeDialog() {
-            document.getElementById('dialog').innerHTML = '';
-            var dt = document.getElementById("grid");
-            // hide data table
-            dt.style.display = 'block';
-            dt.style.visibility = 'visible';
-        }
-        
-        function activateQuiz(theForm) {
-          alert('activate quiz');
-          return false;
-        }
+          
+          function closeDialog() {
+              document.getElementById('dialog').innerHTML = '';
+              var dt = document.getElementById("grid");
+              // hide data table
+              dt.style.display = 'block';
+              dt.style.visibility = 'visible';
+          }
+          
+          function activateQuiz(theForm) {
+            theForm.onsubmit = function() { return false; }; // prevent form submission
+            var value = theForm['duration'].selectedOptions[0].value;
+
+            var request = $.ajax({
+               url : "/api/v1/activate_quiz",
+               type : "PUT",
+               data: { 'quiz_id': this.model.id, 'duration': value },
+               dataType : "json"
+            });
+
+            request.done(function(msg) {
+               alert('success!');
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+               alert("Request failed: " + textStatus);
+            });
+          }
       </script>
       
 

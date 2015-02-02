@@ -1,12 +1,15 @@
 package za.org.ase.quiz.routes
 
 import com.tobykurien.sparkler.transformer.JsonTransformer
+import java.util.Date
 import org.javalite.activejdbc.Model
-import za.org.ase.quiz.models.Quiz
 import org.javalite.activejdbc.Paginator
+import za.org.ase.quiz.models.ActiveQuiz
+import za.org.ase.quiz.models.Quiz
 
 class QuizRoutes extends BaseRoute {
    var quiz = Model.with(Quiz)
+   var activeQuiz = Model.with(ActiveQuiz)
    
    override load() {
       get(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
@@ -36,7 +39,18 @@ class QuizRoutes extends BaseRoute {
             "name", req.queryParams("name")
          )
       ])
-      
+
+      // activate a quiz      
+      put(new JsonTransformer(API_PREFIX + "/activate_quiz") [req, res|
+         val duration = Integer.parseInt(req.queryParams("duration"))
+         val endDate = new Date(new Date().time + (duration*60*1000))
+         
+         activeQuiz.createIt(
+            "quiz_id", req.queryParams("quiz_id"),
+            "ends_at", endDate
+         )
+      ])
+
       delete(new JsonTransformer(API_PREFIX + "/quiz/:id") [req, res|
          quiz.delete("id = ?", req.params("id"))
          #{ "success" -> true }

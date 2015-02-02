@@ -16,7 +16,7 @@ create table active_quizzes (
   id bigint auto_increment,
   created_at timestamp,
   updated_at timestamp,
-  quiz_id number not null,
+  quiz_id bigint not null,
   ends_at timestamp
 );
 
