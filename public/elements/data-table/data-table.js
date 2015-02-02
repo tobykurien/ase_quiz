@@ -3,6 +3,7 @@ Polymer({
 	m : null,	// instance of model for binding
 	models : [],	// array of models being displayed
 	params: '',		// parameters to pass to REST query
+	readonly: false,  // show edit/del/add
 
 	// Columns to render in list (space-separated)
 	cols : "name",
@@ -21,6 +22,10 @@ Polymer({
 		if (this.model == '') {
 			alert('Model not defined for data-table');
 			return;
+		}
+		
+		if (this.childElementCount == 0) {
+			this.readonly = true;
 		}
 
 		// load external operations

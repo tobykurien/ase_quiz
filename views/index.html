@@ -1,11 +1,27 @@
 {{< base}}
 
+   {{$header}}
+      <link rel="import" href="{{rootPath}}/elements/data-table/data-table.html"/>
+   {{/header}}
+
    {{$title}}ASE Quiz{{/title}}
 
    {{$content}}
    
-      Welcome to ASE Quiz.      
+      Welcome to ASE Quiz.
+      
+      <data-table model="quiz_active" actions="Take" onAction="onAction">
+      </data-table>     
    
+      <button onClick="location.reload()">Check for new quiz</button>
+   
+      <script>
+      function onAction(action, model) {
+    	  if (action === 'Take') {
+    		  alert('Get ready for ' + model.name);
+    	  }
+      }
+      </script>
    {{/content}}
 
 {{/base}}

@@ -11,6 +11,18 @@ class QuizRoutes extends BaseRoute {
    var quiz = Model.with(Quiz)
    
    override load() {
+      get(new JsonTransformer(API_PREFIX + "/quiz_active") [req, res|
+         var pageSize = 10
+         var paginator = new Paginator(Quiz, pageSize, "ends_at > ?", new Date()).orderBy("id desc");
+         var page = try { Integer.parseInt(req.queryParams("page")) } catch (Exception e) { 1 };
+         var result = paginator.getPage(page)
+         #{
+            'count' -> paginator.count,
+            'pages' -> paginator.pageCount,
+            'results' -> result.toMaps
+          }
+      ])
+
       get(new JsonTransformer(API_PREFIX + "/quiz") [req, res|
          var pageSize = 10
          var paginator = new Paginator(Quiz, pageSize, "true").orderBy("id desc");
