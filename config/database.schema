@@ -12,6 +12,14 @@ create table quizzes (
   name varchar(255) not null
 );
 
+create table active_quizzes (
+  id bigint auto_increment,
+  created_at timestamp,
+  updated_at timestamp,
+  quiz_id number not null,
+  ends_at timestamp
+);
+
 create table question_types (
   id bigint auto_increment,
   name varchar(255) not null

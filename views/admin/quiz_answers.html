@@ -11,11 +11,10 @@
    {{$content}}
       <h1>Answers</h1>
       
-      <b>{{question.question}}</b>
+      <b>Question:</b> {{question.question}}
       <br/><br/>
       
-      <data-table model="answer" params="questionId={{question.id}}" cols="id answer points"
-         actions="Answers">      
+      <data-table model="answer" params="questionId={{question.id}}" cols="answer">      
          <template> <!-- Edit form template is the first child element -->
             <b>Answer</b>
             <form>

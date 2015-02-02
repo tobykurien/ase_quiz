@@ -11,15 +11,7 @@
    {{$content}}
       <h1>ASE Quiz Admin</h1>
       
-      <script>
-        function quizAction(action, model) {
-        	 if (action === "Questions") {
-	          location.href='{{rootPath}}/admin/questions/' + model.id;
-        	 }
-        }
-      </script>
-      
-      <data-table model="quiz" cols="id name" actions="Questions" onAction="quizAction">      
+      <data-table id="grid" model="quiz" cols="id name" actions="Questions Activate" onAction="quizAction">      
          <template> <!-- Edit form template is the first child element -->
 	         <b>Quiz</b>
 	         <form>
@@ -33,6 +25,63 @@
 	         </form>
          </template>
       </data-table>
+      
+      <div id="dialog">
+      </div>
+
+      <template id="dlg_activate">
+         <b>Activate Quiz</b>
+         <form onsubmit="">
+            
+            <p><span id="quiz_title"></span></p>
+            
+            <div class="form-group">
+              <label for="name">Run quiz for:</label>
+              <select name="duration">
+                <option>30 minutes</option>
+                <option>25 minutes</option>
+                <option>20 minutes</option>
+                <option>15 minutes</option>
+                <option>10 minutes</option>
+                <option>5 minutes</option>
+              </select>
+            </div>
+              
+            <button onClick="closeDialog()" class="btn">Cancel</button>
+            <button onClick="activateQuiz(this)" class="btn btn-default">Submit</button>
+         </form>
+      </template>
+
+      <script>
+        function quizAction(action, model) {
+          if (action === "Questions") {
+        	   location.href='{{rootPath}}/admin/questions/' + model.id;
+          } else if (action == "Activate") {
+        	     var dt = document.getElementById("grid");
+              // hide data table
+              dt.style.display = 'none';
+              dt.style.visibility = 'hidden';
+              
+              var editForm = document.getElementById("dlg_activate");
+              document.getElementById('dialog').innerHTML = editForm.innerHTML;
+              document.getElementById('quiz_title').innerHTML = model.name;
+          }
+        }
+        
+        function closeDialog() {
+            document.getElementById('dialog').innerHTML = '';
+            var dt = document.getElementById("grid");
+            // hide data table
+            dt.style.display = 'block';
+            dt.style.visibility = 'visible';
+        }
+        
+        function activateQuiz(theForm) {
+          alert('activate quiz');
+          return false;
+        }
+      </script>
+      
 
    {{/content}}
 
