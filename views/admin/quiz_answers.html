@@ -14,7 +14,7 @@
       <b>Question:</b> {{question.question}}
       <br/><br/>
       
-      <data-table model="answer" params="questionId={{question.id}}" cols="answer">      
+      <data-table model="answer" params="questionId={{question.id}}" cols="answer correct">      
          <template> <!-- Edit form template is the first child element -->
             <b>Answer</b>
             <form>
@@ -24,8 +24,8 @@
               </div>
 
               <div class="form-group">
-                <label for="points"></label>
-                <input type="checkbox" class="form-control" id="correct" checked="[[m.checkbox]]" value="true"> Correct answer?
+                <label for="correct"></label>
+                <input type="checkbox" class="form-control" id="correct" checked="[[m.correct]]" value="true"> Correct answer?
               </div>
 
               <button on-click="[[cancel]]" class="btn">Cancel</button>
