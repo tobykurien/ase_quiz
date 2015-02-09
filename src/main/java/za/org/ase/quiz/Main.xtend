@@ -15,6 +15,7 @@ import za.org.ase.quiz.routes.QuizRoutes
 import static com.tobykurien.sparkler.Sparkler.*
 
 import static extension za.org.ase.quiz.Helper.*
+import za.org.ase.quiz.routes.StudentRoutes
 
 class Main implements SparkApplication {
    
@@ -56,6 +57,7 @@ class Main implements SparkApplication {
       new QuizRoutes().load()
       new QuestionRoutes().load()
       new AnswerRoutes().load()
+      new StudentRoutes().load()
    }
    
    def static void main(String[] args) {

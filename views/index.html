@@ -18,7 +18,7 @@
       <script>
       function onAction(action, model) {
     	  if (action === 'Take') {
-    		  alert('Get ready for ' + model.name);
+    		  location.href = '{{rootPath}}/take_quiz?quiz_id=' + model.id;
     	  }
       }
       </script>
