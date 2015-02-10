@@ -1,0 +1,38 @@
+{{< base}}
+
+   {{$header}}
+      <link rel="import" href="{{rootPath}}/elements/data-table/data-table.html"/>
+   {{/header}}
+
+   {{$content}}
+      <h1>{{quiz.name}}</h1>
+      
+      <b>Question</b>
+      <p>
+         {{question.question}}
+      </p>
+   
+      Select answer:
+	    <div class="row">
+	        <div class="col-md-12">
+	            <div class="well"><form class="form-horizontal" role="form" action="login" method="POST">
+			         {{#answers}}
+                   <div class="form-group">
+			            <input type="radio" id="answer" name="answer" value="{{id}}"/> {{answer}}
+                   </div>
+			         {{/answers}}
+	                <div class="form-group">
+	                    <div class="col-md-offset-6 col-md-3">
+	                        <button type="button" class="btn btn-success">Save</button>
+	                    </div>
+	                </div>
+	            </form></div>
+	        </div>
+	    </div>
+      <form>
+   
+   {{/content}}
+
+
+
+{{/base}}
