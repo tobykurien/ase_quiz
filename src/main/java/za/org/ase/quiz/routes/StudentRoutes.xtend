@@ -90,7 +90,7 @@ class StudentRoutes extends BaseRoute {
                for (ans : correctAnswers) {
                   if (ans.isCorrect(qstn.getInteger("question_type_id"), answerId, answerText)) {
                      correct = true
-                     points += ans.getInteger("points")
+                     points += qstn.points
                   }
                }
             } else {
