@@ -1,15 +1,14 @@
 package za.org.ase.quiz.routes
 
 import com.tobykurien.sparkler.db.DatabaseManager
+import com.tobykurien.sparkler.transformer.JsonTransformer
 import com.tobykurien.sparkler.transformer.RestfulException
-import java.util.Date
 import org.javalite.activejdbc.Base
 import org.javalite.activejdbc.Model
 import za.org.ase.quiz.models.Answer
 import za.org.ase.quiz.models.Question
 import za.org.ase.quiz.models.Quiz
 import za.org.ase.quiz.models.StudentAnswer
-import com.tobykurien.sparkler.transformer.JsonTransformer
 
 /**
  * Routes for students taking (answering) a quiz 
@@ -84,7 +83,7 @@ class StudentRoutes extends BaseRoute {
    
             // process the correctness of the answer
             var correct = false
-            var points = 0
+            var points = 0L
             var correctAnswers = qstn.get(Answer, "correct = ?", true)
             if (correctAnswers != null && correctAnswers.length > 0) {
                for (ans : correctAnswers) {

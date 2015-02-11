@@ -1,17 +1,18 @@
 package za.org.ase.quiz.models
 
+import com.tobykurien.sparkler.db.DbField
 import org.javalite.activejdbc.Model
 import org.javalite.activejdbc.annotations.BelongsTo
-import com.tobykurien.sparkler.utils.Log
 
 @BelongsTo(foreignKeyName='question_id',parent=Question)
 class Answer extends Model {
+   @DbField String answer
+   @DbField boolean correct
    
    // Check if a submitted student answer is the correct answer. Must be run 
    // against a correct Answer model
    def boolean isCorrect(int questionType, long answerId, String answerText) {
-
-      if (getBoolean("correct") == false) {
+      if (correct == false) {
          // this answer is not correct, so we can't check for correctness here
          return false
       }
@@ -21,7 +22,7 @@ class Answer extends Model {
          return answerId == (id as Long)
       }
       
-      var text = getString("answer_text")
+      var text = answer
       if (text != null && text.trim.length > 0 && 
             answerText != null && answerText.trim.length > 0) {
          // TODO compare the two according to the question type

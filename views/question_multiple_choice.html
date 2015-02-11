@@ -44,7 +44,8 @@
         });
 
         request.done(function(msg) {
-           scope.loadData();
+           alert('Saved!');
+           // now load next question...
         });
 
         request.fail(function(jqXHR, textStatus) {
