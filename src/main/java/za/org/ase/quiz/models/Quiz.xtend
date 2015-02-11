@@ -6,7 +6,7 @@ import org.javalite.activejdbc.Model
 class Quiz extends Model {
    
    def getIsActive() {
-      getDate("ends_at").time < new Date().time
+      getDate("ends_at").after(new Date())
    }
    
 }

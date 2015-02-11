@@ -29,26 +29,17 @@
 	            </form></div>
 	        </div>
 	    </div>
-      <form>
 
       <script type="text/javascript">
       function saveAnswer(theForm) {
     	  var answerId = theForm.answer.value;
     	  var type = "PUT";
-        var uri = "/api/v1/student_answer";
-        if (m.id > 0) {
-           // update record
-           type = "POST";
-           uri = uri + "/" + m.id;
-        } else {
-           uri = uri + "?" + this.params;
-        }
-
+        var uri = "/api/v1/student_answer/{{question.id}}";
         // post data back to server
         var request = $.ajax({
            url : uri,
            type : type,
-           data: m,
+           data: { 'answer_id': answerId },
            dataType : "json"
         });
 

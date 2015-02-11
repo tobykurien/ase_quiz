@@ -9,6 +9,7 @@ import za.org.ase.quiz.models.Answer
 import za.org.ase.quiz.models.Question
 import za.org.ase.quiz.models.Quiz
 import za.org.ase.quiz.models.StudentAnswer
+import com.tobykurien.sparkler.transformer.JsonTransformer
 
 /**
  * Routes for students taking (answering) a quiz 
@@ -57,9 +58,7 @@ class StudentRoutes extends BaseRoute {
       ]
       
       // save an answer entered by student for a question
-      put("/student_answer/:question_id") [req, res|
-         Base.open(DatabaseManager.newDataSource)
-         try {
+      put(new JsonTransformer(API_PREFIX + "/student_answer/:question_id") [req, res|
             // get answer data
             var answerId = try { 
                Integer.parseInt(req.queryParams("answer_id"))
@@ -78,17 +77,22 @@ class StudentRoutes extends BaseRoute {
             // make sure the quiz is still active
             var qz = quiz.findById(qstn.getLong("quiz_id"))
             if (qz == null || !qz.isActive) {
-               throw new RestfulException(404, "Quiz expired")
+               throw new RestfulException(404, "Quiz expired " + qz)
             }
    
             // process the correctness of the answer
             var correct = false
             var points = 0
-            var correctAnswer = qstn.get(Answer, "correct = ?", true)
-            if (correctAnswer != null && correctAnswer.length > 0) {
-               if (correctAnswer.get(0).isCorrect(answerId, answerText)) {
-                  points = correctAnswer.get(0).getInteger("points")
+            var correctAnswers = qstn.get(StudentAnswer, "correct = ?", true)
+            if (correctAnswers != null && correctAnswers.length > 0) {
+               for (ans : correctAnswers) {
+                  if (ans.isCorrect(answerId, answerText)) {
+                     correct = true
+                     points += ans.getInteger("points")
+                  }
                }
+            } else {
+               // This question has no correct answer loaded! What do? 
             }
    
             // save the answer data
@@ -117,10 +121,7 @@ class StudentRoutes extends BaseRoute {
             }
             
             return prevAnswer
-         } finally {
-            Base.close
-         }
-      ]
+      ])
    }
    
 }
