@@ -11,5 +11,13 @@ abstract class BaseRoute extends Sparkler {
       Helper.isAdmin(req)      
    }
    
+   def boolean isLoggedIn(Request req) {
+      req.getStudent != null
+   }
+   
+   def getStudent(Request req) {
+      Helper.getStudent(req)
+   }
+   
    def void load()
 }

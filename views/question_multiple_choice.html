@@ -23,16 +23,44 @@
 			         {{/answers}}
 	                <div class="form-group">
 	                    <div class="col-md-offset-6 col-md-3">
-	                        <button type="button" class="btn btn-success">Save</button>
+	                        <button type="button" onClick="saveAnswer(this.form)" class="btn btn-success">Save</button>
 	                    </div>
 	                </div>
 	            </form></div>
 	        </div>
 	    </div>
       <form>
-   
+
+      <script type="text/javascript">
+      function saveAnswer(theForm) {
+    	  var answerId = theForm.answer.value;
+    	  var type = "PUT";
+        var uri = "/api/v1/student_answer";
+        if (m.id > 0) {
+           // update record
+           type = "POST";
+           uri = uri + "/" + m.id;
+        } else {
+           uri = uri + "?" + this.params;
+        }
+
+        // post data back to server
+        var request = $.ajax({
+           url : uri,
+           type : type,
+           data: m,
+           dataType : "json"
+        });
+
+        request.done(function(msg) {
+           scope.loadData();
+        });
+
+        request.fail(function(jqXHR, textStatus) {
+           alert("Request failed: " + textStatus);
+        });
+      }
+      </script>   
    {{/content}}
-
-
 
 {{/base}}
