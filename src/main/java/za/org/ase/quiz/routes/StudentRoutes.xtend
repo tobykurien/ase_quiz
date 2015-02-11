@@ -59,6 +59,8 @@ class StudentRoutes extends BaseRoute {
       
       // save an answer entered by student for a question
       put(new JsonTransformer(API_PREFIX + "/student_answer/:question_id") [req, res|
+            // TODO security check: is student logged in?
+         
             // get answer data
             var answerId = try { 
                Integer.parseInt(req.queryParams("answer_id"))
@@ -83,10 +85,10 @@ class StudentRoutes extends BaseRoute {
             // process the correctness of the answer
             var correct = false
             var points = 0
-            var correctAnswers = qstn.get(StudentAnswer, "correct = ?", true)
+            var correctAnswers = qstn.get(Answer, "correct = ?", true)
             if (correctAnswers != null && correctAnswers.length > 0) {
                for (ans : correctAnswers) {
-                  if (ans.isCorrect(answerId, answerText)) {
+                  if (ans.isCorrect(qstn.getInteger("question_type_id"), answerId, answerText)) {
                      correct = true
                      points += ans.getInteger("points")
                   }
